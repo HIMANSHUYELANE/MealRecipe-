@@ -1,0 +1,100 @@
+*{
+    margin: 0px;
+}
+body{
+    background-color:gold;
+}
+.main{
+margin: 60px auto;
+  width: 60%;
+  background-color: white;
+  text-align: center;
+  border-radius: 7px;
+}
+
+.sec1{
+padding: 10px 0px;
+}
+.sec1 input{
+    font-size: medium;
+ padding: 7px 20px;
+ margin: 5px 0px;
+ border: none;
+ outline: none;
+ border-bottom: 2px black solid;
+}
+
+.sec1 button{
+    margin: 0px 20px;
+    font-weight: 700;
+    padding: 10px 15px;
+    font-size: medium;
+    background-color: gold;
+    border-radius: 8px;
+    border: none;
+}
+
+.option{
+    position:absolute;
+}
+
+img{
+    width: 20%;
+}
+
+#hide{
+    background-color: whitesmoke;
+    width: 60% ;
+    height: 70%;
+    z-index: 2;
+    position: absolute;
+    top: 60px;
+    display: none;
+   
+}
+
+#show{
+    display: none ;
+}
+#show button{
+    background-color: gold;
+    margin: 10px 0px;
+    font-size: large;
+}
+#content{
+    margin: 10px 40px;
+    padding: 30px 10px;
+}
+#hide button{
+    float:right;
+    margin: 0px 10px;
+    font-size: large;
+    background-color:gold;
+    border-radius: 5px;
+}
+
+ul{
+    /* display: flex; */
+    /* justify-content: space-evenly; */
+    display: grid;
+  grid-template-columns: auto auto;
+  gap: 0.8em 1.1em;
+  text-transform: capitalize;
+ 
+}
+
+li{
+    padding: 3px;
+
+}
+
+@media screen and (max-width: 500px){
+    .main{
+        width: 80%;
+        margin: 100px auto;
+    }
+    #hide{
+      width: 80%;
+      top:100px;
+    }
+}

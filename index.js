@@ -1,0 +1,97 @@
+let srch = document.getElementById("srch");
+let result = document.getElementById("result");
+
+let url = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
+let inp = document.getElementById("inp");
+let opt = document.getElementById("opt");
+
+// inp.addEventListener("input", () => {
+//   let all = [];
+//   fetch(url + inp.value)
+//     .then((response) => {
+//       let data = response.json();
+//       return data;
+//     })
+//     .then((data) => {
+//       let meals = data.meals;
+//       meals.forEach((ele) => {
+//         // let opt = document.createElement("div");
+//         all.push = [ele.strMeal];
+//         console.log(all);
+//         // opt.className = "option";
+//         opt.innerHTML = ele.strMeal;
+//         // sec1.appendchild(opt);
+
+//         // console.log(ele.strMeal);
+//       });
+//     });
+// });
+
+srch.addEventListener("click", () => {
+  if (inp.value.length == 0) {
+    result.innerHTML = "Give the input ";
+  } else {
+    fetch(url + inp.value)
+      .then((response) => {
+        let data = response.json();
+        return data;
+      })
+      .then((data) => {
+        let meals = data.meals[0];
+        console.log(data.meals[0]);
+        console.log(meals.strMeal);
+        console.log(meals.strCategory);
+        console.log(meals.strArea);
+        console.log(meals.strMealThumb);
+        console.log(meals.strInstructions);
+        //   opt.innerHTML = meals.strMeal;
+        let count = 1;
+        let ingredients = [];
+        for (let i in meals) {
+          let ingredient = "";
+          let measure = "";
+          if (i.startsWith("strIngredient") && meals[i]) {
+            ingredient = meals[i];
+            measure = meals[`strMeasure` + count];
+            count += 1;
+            ingredients.push(`${measure} ${ingredient}`);
+          }
+        }
+        console.log(ingredients);
+        console.log(result);
+        result.innerHTML = `<img src=${meals.strMealThumb}>
+      <div class="name">
+      <h2>${meals.strMeal}</h1>
+      <h4>${meals.strArea}</h4>
+       </div>`;
+
+        let ingredientcon = document.getElementById("ingredient-con");
+        let ul = document.createElement("ul");
+        let hide = document.getElementById("hide");
+        let show = document.getElementById("show");
+        let hbtn = document.getElementById("hbtn");
+        let cont = document.getElementById("content");
+        hbtn.innerHTML = "X";
+        show.style.display = "block";
+        hbtn.addEventListener("click", () => {
+          hide.style.display = "none";
+        });
+
+        show.addEventListener("click", () => {
+          hide.style.display = "block";
+        });
+
+        cont.innerHTML = meals.strInstructions;
+
+        ingredients.forEach((i) => {
+          let li = document.createElement("li");
+          li.innerText = i;
+          ul.appendChild(li);
+          ingredientcon.appendChild(ul);
+        });
+      })
+      .catch((error) => {
+        result.innerHTML = "Not Found";
+      });
+  }
+});
