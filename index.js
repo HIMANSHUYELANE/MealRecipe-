@@ -4,6 +4,11 @@ let result = document.getElementById("result");
 let url = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
 let inp = document.getElementById("inp");
 let opt = document.getElementById("opt");
+let ul = document.createElement("ul");
+let hide = document.getElementById("hide");
+let show = document.getElementById("show");
+let hbtn = document.getElementById("hbtn");
+let cont = document.getElementById("content");
 
 // inp.addEventListener("input", () => {
 //   let all = [];
@@ -30,6 +35,9 @@ let opt = document.getElementById("opt");
 srch.addEventListener("click", () => {
   if (inp.value.length == 0) {
     result.innerHTML = "Give the input ";
+    ul.innerHTML = " ";
+    hide.style.display = "none";
+    show.style.display = "none";
   } else {
     fetch(url + inp.value)
       .then((response) => {
@@ -38,15 +46,10 @@ srch.addEventListener("click", () => {
       })
       .then((data) => {
         let meals = data.meals[0];
-        console.log(data.meals[0]);
-        console.log(meals.strMeal);
-        console.log(meals.strCategory);
-        console.log(meals.strArea);
-        console.log(meals.strMealThumb);
-        console.log(meals.strInstructions);
         //   opt.innerHTML = meals.strMeal;
         let count = 1;
         let ingredients = [];
+
         for (let i in meals) {
           let ingredient = "";
           let measure = "";
@@ -57,8 +60,6 @@ srch.addEventListener("click", () => {
             ingredients.push(`${measure} ${ingredient}`);
           }
         }
-        console.log(ingredients);
-        console.log(result);
         result.innerHTML = `<img src=${meals.strMealThumb}>
       <div class="name">
       <h2>${meals.strMeal}</h1>
@@ -66,11 +67,7 @@ srch.addEventListener("click", () => {
        </div>`;
 
         let ingredientcon = document.getElementById("ingredient-con");
-        let ul = document.createElement("ul");
-        let hide = document.getElementById("hide");
-        let show = document.getElementById("show");
-        let hbtn = document.getElementById("hbtn");
-        let cont = document.getElementById("content");
+
         hbtn.innerHTML = "X";
         show.style.display = "block";
         hbtn.addEventListener("click", () => {
@@ -92,6 +89,9 @@ srch.addEventListener("click", () => {
       })
       .catch((error) => {
         result.innerHTML = "Not Found";
+        ul.innerHTML = " ";
+        hide.style.display = "none";
+        show.style.display = "none";
       });
   }
 });
