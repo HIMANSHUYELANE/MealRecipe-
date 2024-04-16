@@ -9,28 +9,32 @@ let hide = document.getElementById("hide");
 let show = document.getElementById("show");
 let hbtn = document.getElementById("hbtn");
 let cont = document.getElementById("content");
+let sugg = document.getElementById("sugg");
 
-// inp.addEventListener("input", () => {
-//   let all = [];
-//   fetch(url + inp.value)
-//     .then((response) => {
-//       let data = response.json();
-//       return data;
-//     })
-//     .then((data) => {
-//       let meals = data.meals;
-//       meals.forEach((ele) => {
-//         // let opt = document.createElement("div");
-//         all.push = [ele.strMeal];
-//         console.log(all);
-//         // opt.className = "option";
-//         opt.innerHTML = ele.strMeal;
-//         // sec1.appendchild(opt);
+inp.addEventListener("input", () => {
+  let all = [];
+  let count = 1;
+  fetch(url + inp.value)
+    .then((response) => {
+      let data = response.json();
+      return data;
+    })
+    .then((data) => {
+      let meal = data.meals;
+      sugg.style.display="block"
+      for (let m = 0; m <= meal.length; m++) {
+        let div = document.createElement("div");
+        div.classList = "suggetion";
+        div.innerHTML = meal[m].strMeal;
+        sugg.appendChild(div);
 
-//         // console.log(ele.strMeal);
-//       });
-//     });
-// });
+        div.addEventListener("click", () => {
+          inp.value = div.innerText;
+          sugg.style.display="none"
+        });
+      }
+    });
+});
 
 srch.addEventListener("click", () => {
   if (inp.value.length == 0) {
@@ -39,6 +43,7 @@ srch.addEventListener("click", () => {
     hide.style.display = "none";
     show.style.display = "none";
   } else {
+    sugg.style.display = "none";
     fetch(url + inp.value)
       .then((response) => {
         let data = response.json();
@@ -61,10 +66,10 @@ srch.addEventListener("click", () => {
           }
         }
         result.innerHTML = `<img src=${meals.strMealThumb}>
-      <div class="name">
-      <h2>${meals.strMeal}</h1>
-      <h4>${meals.strArea}</h4>
-       </div>`;
+                  <div class="name">
+                  <h2>${meals.strMeal}</h1>
+                  <h4>${meals.strArea}</h4>
+                   </div>`;
 
         let ingredientcon = document.getElementById("ingredient-con");
 

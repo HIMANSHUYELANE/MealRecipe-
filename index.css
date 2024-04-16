@@ -95,6 +95,20 @@ li{
     }
     #hide{
       width: 80%;
+      height: fit-content;
       top:100px;
     }
+}
+
+.suggetion{
+    margin: 2px 0px;
+    border-bottom: 2px solid black; 
+    border-top: 2px solid black; 
+    position: relative;
+    background-color: white;
+}
+
+#sugg{
+    display: flex;
+    flex-direction: column-reverse;
 }
