@@ -21,19 +21,24 @@ inp.addEventListener("input", () => {
     })
     .then((data) => {
       let meal = data.meals;
-      sugg.style.display="block"
-      for (let m = 0; m <= meal.length; m++) {
+      sugg.style.display = "block";
+      meal.filter ((m)=> {
         let div = document.createElement("div");
         div.classList = "suggetion";
-        div.innerHTML = meal[m].strMeal;
+        if (m == div.innerText) {
+          div.innerHTML = " ";
+        } else {
+          div.innerHTML = m.strMeal;
+        }
         sugg.appendChild(div);
 
         div.addEventListener("click", () => {
           inp.value = div.innerText;
-          sugg.style.display="none"
+          sugg.style.display = "none";
+          sugg.innerHTML = "";
         });
-      }
-    });
+      })
+   });
 });
 
 srch.addEventListener("click", () => {
